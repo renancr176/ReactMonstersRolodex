@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 
 import { CardList } from './components/card-list/card-list.coponent';
+import { SearchBox } from './components/search-box/search-box.component';
 
 class App extends Component{
   constructor(){
@@ -21,6 +22,10 @@ class App extends Component{
       .then(users => this.setState({monsters: users}));
   }
 
+  handleChange = (event) => {
+    this.setState({searchField: event.target.value});
+  }
+
   render()
   {
     const {monsters, searchField} = this.state;
@@ -30,9 +35,8 @@ class App extends Component{
 
     return (
       <div className='App'>
-        <input type='search' 
-        placeholder='search monsters' 
-        onChange={e => this.setState({searchField: e.target.value})}/>
+        <SearchBox placeholder='Search monsters'
+          handleChange={this.handleChange}/>
         <CardList monsters={filteredMonsters}/>
       </div>
     );
